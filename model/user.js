@@ -7,6 +7,12 @@ const userSchema = new Schema({
   username: { type: String, required: true, min: 1, max: 50 },
   email: { type: String, required: true, min: 5, max: 50 },
   password: { type: String, required: true, min: 4, max: 50 },
+  status: {
+    type: String,
+    enum: ["inactive", "active"],
+    default: "inactive",
+    required: true,
+  },
   admin: { type: Boolean, required: true, default: false },
 });
 
