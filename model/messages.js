@@ -12,4 +12,9 @@ messageSchema.virtual("url").get(function () {
   return `/messages/${this._id}`;
 });
 
-module.exports = mongoose.model("message", messageSchema);
+const messageDB = process.env.MONGODB_MESSAGE_URI;
+const messageConnection = mongoose.createConnection(messageDB);
+
+const Message = messageConnection.model("message", messageSchema, "messages");
+
+module.exports = Message;
