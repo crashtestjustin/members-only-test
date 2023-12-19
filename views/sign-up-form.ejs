@@ -7,5 +7,35 @@
   </head>
   <body>
     <h1>Sign Up Form</h1>
+    <form method="post" action="">
+      <label for="name">Full Name:</label>
+      <input
+        name="name"
+        type="text"
+        required
+        placeholder="first and last name"
+      />
+      <label for="username">Username:</label>
+      <input
+        name="username"
+        type="text"
+        required="true"
+        placeholder="username"
+        required
+      />
+      <label for="email">Email Address:</label>
+      <input name="email" type="email" placeholder="email" required />
+      <label for="password">Password:</label>
+      <input name="password" type="password" placeholder="password" required />
+      <label for="confirm-password">Password:</label>
+      <input
+        name="confirm-password"
+        type="password"
+        placeholder="confrim password"
+        required
+      />
+      <button type="submit">Register</button>
+      <button onclick="window.location.href='/'">Cancel</button>
+    </form>
   </body>
 </html>
