@@ -20,4 +20,9 @@ userSchema.virtual("url").get(function () {
   return `/users/${this._id}`;
 });
 
-module.exports = mongoose.model("user", userSchema);
+const userDB = process.env.MONGODB_USER_URI;
+const userConnection = mongoose.createConnection(userDB);
+
+const User = userConnection.model("user", userSchema, "users");
+
+module.exports = User;
