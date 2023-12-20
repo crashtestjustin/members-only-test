@@ -14,19 +14,57 @@
         type="text"
         required
         placeholder="first and last name"
+        value="<%= errors && errors.length > 0 ? user.name : '' %>"
       />
+      <% if(errors && errors.length > 0 && errors.find(e => e.path === 'name'))
+      { %>
+      <p><%= errors.find(e => e.path === 'name').msg %></p>
+      <% } else { %>
+      <p></p>
+      <% } %>
       <label for="username">Username:</label>
       <input
         name="username"
         type="text"
         required="true"
         placeholder="username"
+        value="<%= errors && errors.length > 0 ? user.username : '' %>"
         required
       />
+      <% if(errors && errors.length > 0 && errors.find(e => e.path ===
+      'username')) { %>
+      <p><%= errors.find(e => e.path === 'username').msg %></p>
+      <% } else { %>
+      <p></p>
+      <% } %>
       <label for="email">Email Address:</label>
-      <input name="email" type="email" placeholder="email" required />
+      <input
+        name="email"
+        type="email"
+        placeholder="email"
+        value="<%= errors && errors.length > 0 ? user.email : '' %>"
+        required
+      />
+      <% if(errors && errors.length > 0 && errors.find(e => e.path === 'email'))
+      { %>
+      <p><%= errors.find(e => e.path === 'email').msg %></p>
+      <% } else { %>
+      <p></p>
+      <% } %>
       <label for="password">Password:</label>
-      <input name="password" type="password" placeholder="password" required />
+      <input
+        name="password"
+        type="password"
+        placeholder="password"
+        value="<%= errors && errors.length > 0 ? password : '' %>"
+        required
+      />
+      <% if(errors && errors.length > 0 && errors.find(e => e.path ===
+      'password')) { %>
+      <p><%= errors.find(e => e.path === 'password').msg %></p>
+      <% } else { %>
+      <p></p>
+      <% } %>
       <label for="confirm-password">Password:</label>
       <input
         name="confirm-password"
@@ -34,6 +72,12 @@
         placeholder="confrim password"
         required
       />
+      <% if(errors && errors.length > 0 && errors.find(e => e.path ===
+      'confirm-password')) { %>
+      <p><%= errors.find(e => e.path === 'confirm-password').msg %></p>
+      <% } else { %>
+      <p></p>
+      <% } %>
       <button type="submit">Register</button>
       <button onclick="window.location.href='/'">Cancel</button>
     </form>
