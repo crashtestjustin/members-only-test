@@ -11,6 +11,14 @@ router.get("/sign-up", user_controller.user_register_get);
 //POST Sign up Form
 router.post("/sign-up", user_controller.user_register_post);
 //GET Registration Password Page
-router.get("/registration-password", user_controller.user_register_password);
+router.get(
+  "/registration-password",
+  user_controller.user_register_password_get
+);
+//POST Registration Password Page
+router.post(
+  "/registration-password",
+  user_controller.user_register_password_post
+);
 
 module.exports = router;
