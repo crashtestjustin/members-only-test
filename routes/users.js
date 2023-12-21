@@ -20,5 +20,7 @@ router.post(
   "/registration-password",
   user_controller.user_register_password_post
 );
+//GET User Logout
+router.get("/logout", user_controller.user_logout);
 
 module.exports = router;
