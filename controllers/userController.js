@@ -28,8 +28,6 @@ const existingUsername = async (value) => {
 const passwordMatch = (value, { req }) => {
   const password = req.body.password;
   const confirmPass = value;
-  console.log(password, typeof password);
-  console.log(confirmPass, typeof confirmPass);
 
   return new Promise((resolve, reject) => {
     if (confirmPass === password) {
@@ -72,7 +70,6 @@ exports.user_register_post = [
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-    console.log(errors.array());
 
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
@@ -104,11 +101,89 @@ exports.user_register_post = [
   }),
 ];
 
-exports.user_register_password = asyncHandler(async (req, res, next) => {
+exports.user_register_password_get = asyncHandler(async (req, res, next) => {
   const name = req.query.name;
   const username = req.query.username;
+  const errors = [];
   res.render("sign-up-password", {
     name: name,
     username: username,
+    errors: errors,
   });
 });
+
+const accessPasswordMatch = (value) => {
+  const password = "mbaccess2023";
+  const confirmPass = value;
+
+  return new Promise((resolve, reject) => {
+    if (confirmPass === password) {
+      resolve();
+    } else {
+      reject(new Error("Incorrect Access Password"));
+    }
+  });
+};
+
+const adminPasswordMatch = (value) => {
+  const password = "adminaccess2023";
+  const confirmPass = value;
+
+  return new Promise((resolve, reject) => {
+    if (confirmPass === password || confirmPass === "") {
+      resolve();
+    } else {
+      reject(new Error("Incorrect Admin Password"));
+    }
+  });
+};
+
+exports.user_register_password_post = [
+  body("access-password", "Access Password Reuqired for full access")
+    .trim()
+    .custom(accessPasswordMatch)
+    .escape(),
+  body(
+    "admin-password",
+    "Incorrect admin password. Enter a new value or remove to submit."
+  )
+    .trim()
+    .custom(adminPasswordMatch)
+    .escape(),
+
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    try {
+      if (!errors.isEmpty()) {
+        return res.render("sign-up-password", {
+          name: req.body.name,
+          username: req.body.username,
+          errors: errors.array(),
+        });
+      }
+
+      const name = req.query.name;
+      const username = req.query.username;
+      const adminPassword = req.body["admin-password"];
+
+      const updatedUser = await User.findOneAndUpdate(
+        { name, username },
+        {
+          $set: {
+            status: "active",
+            admin: adminPassword ? true : false,
+          },
+        }
+      );
+
+      if (!updatedUser) {
+        return res.status(404).send("User not found.");
+      }
+
+      res.redirect(`/`);
+    } catch (err) {
+      return next(err);
+    }
+  }),
+];
