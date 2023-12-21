@@ -187,3 +187,13 @@ exports.user_register_password_post = [
     }
   }),
 ];
+
+exports.user_logout = asyncHandler(async (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    } else {
+      res.redirect("/");
+    }
+  });
+});
