@@ -139,7 +139,7 @@ const adminPasswordMatch = (value) => {
 };
 
 exports.user_register_password_post = [
-  body("access-password", "Access Password Reuqired for full access")
+  body("access-password", "Access Password Required for full access")
     .trim()
     .custom(accessPasswordMatch)
     .escape(),
@@ -181,6 +181,9 @@ exports.user_register_password_post = [
         return res.status(404).send("User not found.");
       }
 
+      const approvedUser = await User.findById(updatedUser._id);
+      //   console.log(approvedUser);
+
       res.redirect(`/`);
     } catch (err) {
       return next(err);
@@ -190,20 +193,32 @@ exports.user_register_password_post = [
 
 exports.user_login_get = asyncHandler(async (req, res, next) => {
   res.render("log-in-form", {
+    user: {},
     errors: [],
   });
 });
 
 exports.user_login_post = (req, res, next) => {
-  passport.authenticate("local", async (err, user) => {
+  passport.authenticate("local", async (err, user, info) => {
     try {
       if (err) {
         return next(err);
       }
 
       if (!user) {
-        //to be changed to homepage once dynamic data is visible on the homepage
-        return res.redirect("/error");
+        console.log(user);
+
+        if (info && info.message === "incorrect password") {
+          return res.render("log-in-form", {
+            errors: [{ msg: "Invalid password", path: "password" }],
+            user: { username: req.body.username, password: "" },
+          });
+        }
+
+        return res.render("log-in-form", {
+          errors: [{ msg: "Invalid Username", path: "username" }],
+          user: { username: req.body.username, password: "" },
+        });
       }
 
       if (user.status === "inactive") {
