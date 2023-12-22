@@ -188,6 +188,43 @@ exports.user_register_password_post = [
   }),
 ];
 
+exports.user_login_get = asyncHandler(async (req, res, next) => {
+  res.render("log-in-form", {
+    errors: [],
+  });
+});
+
+exports.user_login_post = (req, res, next) => {
+  passport.authenticate("local", async (err, user) => {
+    try {
+      if (err) {
+        return next(err);
+      }
+
+      if (!user) {
+        //to be changed to homepage once dynamic data is visible on the homepage
+        return res.redirect("/error");
+      }
+
+      if (user.status === "inactive") {
+        return res.redirect(
+          `/registration-password?name=${user.name}&username=${user.username}`
+        );
+      }
+
+      req.login(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        console.log(`${user.username} logged in`);
+        return res.redirect("/");
+      });
+    } catch (err) {
+      return next(err);
+    }
+  })(req, res, next); // <-- Invoke the middleware by passing req, res, and next
+};
+
 exports.user_logout = asyncHandler(async (req, res, next) => {
   req.logout((err) => {
     if (err) {
