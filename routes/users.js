@@ -20,6 +20,10 @@ router.post(
   "/registration-password",
   user_controller.user_register_password_post
 );
+//GET User Log in
+router.get("/log-in", user_controller.user_login_get);
+//POST User Log in
+router.post("/log-in", user_controller.user_login_post);
 //GET User Logout
 router.get("/logout", user_controller.user_logout);
 
