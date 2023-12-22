@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+  </head>
+  <body>
+    <h1>Log In</h1>
+    <form method="post" action="">
+      <label for="username">Username:</label>
+      <input
+        name="username"
+        type="text"
+        required="true"
+        value="<%= errors && errors.length > 0 ? user.username-email : '' %>"
+        required
+      />
+      <% if(errors && errors.length > 0 && errors.find(e => e.path ===
+      'username')) { %>
+      <p><%= errors.find(e => e.path === 'username').msg %></p>
+      <% } else { %>
+      <p></p>
+      <% } %>
+      <label for="password">Password:</label>
+      <input
+        name="password"
+        type="password"
+        placeholder="password"
+        value="<%= errors && errors.length > 0 ? password : '' %>"
+        required
+      />
+      <% if(errors && errors.length > 0 && errors.find(e => e.path ===
+      'password')) { %>
+      <p><%= errors.find(e => e.path === 'password').msg %></p>
+      <% } else { %>
+      <p></p>
+      <% } %>
+
+      <button type="submit">Login</button>
+      <button onclick="window.location.href='/'">Cancel</button>
+    </form>
+  </body>
+</html>
