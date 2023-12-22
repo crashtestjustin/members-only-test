@@ -13,7 +13,8 @@
         name="username"
         type="text"
         required="true"
-        value="<%= errors && errors.length > 0 ? user.username-email : '' %>"
+        placeholder="username"
+        value="<%= user ? user.username : '' %>"
         required
       />
       <% if(errors && errors.length > 0 && errors.find(e => e.path ===
@@ -27,7 +28,7 @@
         name="password"
         type="password"
         placeholder="password"
-        value="<%= errors && errors.length > 0 ? password : '' %>"
+        value=""
         required
       />
       <% if(errors && errors.length > 0 && errors.find(e => e.path ===
