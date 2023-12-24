@@ -232,8 +232,10 @@ exports.user_login_post = (req, res, next) => {
           return next(err);
         }
         console.log(`${user.username} logged in`);
-        //Need to change this to a render and pass the user object back to the homepage to use for dynamic content
-        return res.redirect("/");
+        return res.render("index", {
+          title: "Message Board",
+          user: user,
+        });
       });
     } catch (err) {
       return next(err);
