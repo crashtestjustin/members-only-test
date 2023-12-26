@@ -5,7 +5,7 @@ var router = express.Router();
 router.get("/", function (req, res, next) {
   res.render("index", {
     title: "Message Board",
-    user: {},
+    user: req.isAuthenticated() ? req.user : null,
   });
 });
 
