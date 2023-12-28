@@ -1,12 +1,8 @@
 var express = require("express");
 var router = express.Router();
 
-/* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("index", {
-    title: "Message Board",
-    user: req.isAuthenticated() ? req.user : null,
-  });
-});
+const message_controller = require("../controllers/messageController");
+
+router.get("/", message_controller.index);
 
 module.exports = router;
