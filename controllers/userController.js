@@ -227,6 +227,8 @@ exports.user_login_post = (req, res, next) => {
         );
       }
 
+      const messages = await Message.find().exec();
+
       req.login(user, (err) => {
         if (err) {
           return next(err);
@@ -235,6 +237,7 @@ exports.user_login_post = (req, res, next) => {
         return res.render("index", {
           title: "Message Board",
           user: user,
+          messages: messages,
         });
       });
     } catch (err) {
