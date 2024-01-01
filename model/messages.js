@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const messageSchema = new Schema({
   text: { type: String, required: true, min: 1, max: 150 },
   posted: { type: Date, required: true },
-  user: { type: Schema.Types.ObjectId, ref: "user", required: true },
+  user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 messageSchema.virtual("url").get(function () {
