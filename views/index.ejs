@@ -17,6 +17,12 @@
     <% } %>
     <div class="message-board">
       <h1>Message Board</h1>
+      <% messages.forEach((message) => { %>
+      <p>Message: <%= message.text %></p>
+      <% if (user) { %>
+      <p><%= message.user %></p>
+      <p><%= message.posted %></p>
+      <% } %> <% }) %>
     </div>
   </body>
 </html>
