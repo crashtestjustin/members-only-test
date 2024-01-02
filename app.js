@@ -1,9 +1,9 @@
 var createError = require("http-errors");
 var express = require("express");
+const mongoose = require("mongoose");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
@@ -33,8 +33,8 @@ async function main() {
   }
 }
 
-var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var indexRouter = require("./routes/index");
 
 const app = express();
 
