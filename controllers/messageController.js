@@ -15,6 +15,17 @@ exports.index = asyncHandler(async (req, res, next) => {
 
 exports.delete_messsage_post = asyncHandler(async (req, res, next) => {
   const messageID = req.body.messageID;
-  const message = await Message.findById(messageID).exec();
+  const message = await Message.findById(messageID).populate("user").exec();
   console.log(`Message ID: ${message}`);
+  res.render("delete-message", {
+    Title: "Delete Message",
+    message: message,
+  });
+});
+
+exports.delete_messsage_confirm_post = asyncHandler(async (req, res, next) => {
+  const messageID = req.body.messageID;
+  const message = await Message.findByIdAndDelete(messageID).exec();
+  console.log(`DELETED ${message}`);
+  res.redirect("/");
 });
