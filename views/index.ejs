@@ -14,15 +14,19 @@
     <a href="/logout">Logout</a>
     <% if (user) { %>
     <h2><%= user.name %> (<%= user.username %>) logged in</h2>
-    <% } %>
+    <% if (user.admin === true) { %>
+    <p><%= user.username %> is an admin</p>
+    <% } %> <% } %>
     <div class="message-board">
       <h1>Message Board</h1>
       <% messages.forEach((message) => { %>
       <p>Message: <%= message.text %></p>
       <% if (user) { %>
-      <p><%= message.user.name %></p>
+      <p><%= message.user.name %> (<%= message.user.username %>)</p>
       <p><%= message.posted %></p>
-      <% } %> <% }) %>
+      <% if (user.admin === true) { %>
+      <button>Delete Message</button>
+      <% } %> <% } %> <% }) %>
     </div>
   </body>
 </html>
