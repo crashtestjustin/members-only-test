@@ -2,10 +2,12 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+const User = require("./user");
+
 const messageSchema = new Schema({
   text: { type: String, required: true, min: 1, max: 150 },
   posted: { type: Date, required: true },
-  user: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  user: { type: Schema.Types.ObjectId, ref: User, required: true },
 });
 
 messageSchema.virtual("url").get(function () {
