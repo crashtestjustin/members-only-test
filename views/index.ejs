@@ -20,7 +20,7 @@
       <% messages.forEach((message) => { %>
       <p>Message: <%= message.text %></p>
       <% if (user) { %>
-      <p><%= message.user %></p>
+      <p><%= message.user.name %></p>
       <p><%= message.posted %></p>
       <% } %> <% }) %>
     </div>
