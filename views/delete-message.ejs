@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Message</title>
+  </head>
+  <body>
+    <h1>
+      Confirm you would like to Delete this message? This cannot be undone
+    </h1>
+    <p><%= message.text %></p>
+    <p><%= message.posted %></p>
+    <p><%= message.user.name %></p>
+    <form method="post" action="/delete-message-confirm">
+      <input type="hidden" name="messageID" value="<%= message._id %>" />
+      <button type="submit">Yes</button>
+      <button type="button" onclick="window.location.href='/'">No</button>
+    </form>
+  </body>
+</html>
