@@ -227,18 +227,12 @@ exports.user_login_post = (req, res, next) => {
         );
       }
 
-      const messages = await Message.find().populate("user").exec();
-
       req.login(user, (err) => {
         if (err) {
           return next(err);
         }
         console.log(`${user.username} logged in`);
-        return res.render("index", {
-          title: "Message Board",
-          user: user,
-          messages: messages,
-        });
+        return res.redirect("/");
       });
     } catch (err) {
       return next(err);
