@@ -1,9 +1,9 @@
+const asyncHandler = require("express-async-handler");
+const passport = require("passport");
+const { body, validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
 const User = require("../model/user");
 const Message = require("../model/messages");
-const asyncHandler = require("express-async-handler");
-const { body, validationResult } = require("express-validator");
-const passport = require("passport");
-const bcrypt = require("bcryptjs");
 
 exports.user_register_get = asyncHandler(async (req, res, next) => {
   res.render("sign-up-form", {
@@ -227,7 +227,7 @@ exports.user_login_post = (req, res, next) => {
         );
       }
 
-      const messages = await Message.find().exec();
+      const messages = await Message.find().populate("user").exec();
 
       req.login(user, (err) => {
         if (err) {
