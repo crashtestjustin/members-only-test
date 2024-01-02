@@ -7,4 +7,9 @@ router.get("/", message_controller.index);
 
 router.post("/delete-message", message_controller.delete_messsage_post);
 
+router.post(
+  "/delete-message-confirm",
+  message_controller.delete_messsage_confirm_post
+);
+
 module.exports = router;
