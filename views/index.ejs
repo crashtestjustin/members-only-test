@@ -18,8 +18,12 @@
     <p><%= user.username %> is an admin</p>
     <% } %> <% } %>
     <div class="message-board">
-      <h1>Message Board</h1>
-      <% messages.forEach((message) => { %>
+      <h1>Messages</h1>
+      <% if (user) { %>
+      <button onclick="window.location.href='/new-message'">
+        Create New Message
+      </button>
+      <% } %> <% messages.forEach((message) => { %>
       <p>Message: <%= message.text %></p>
       <% if (user) { %>
       <p><%= message.user.name %> (<%= message.user.username %>)</p>
