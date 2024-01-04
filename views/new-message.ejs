@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <h1>Log In</h1>
+    <% if (user) { %>
+    <h3>Hi <%= user.name %>, you can create a new message here:</h3>
+    <%}%>
+    <form method="post" action="">
+      <label for="message">New Message:</label>
+      <input
+        name="message"
+        type="text"
+        placeholder="message goes here"
+        value=""
+      />
+      <% if (errors && errors.length > 0 && errors.find(e => e.path ===
+      'message')) {%>
+      <p><%= errors.find(e => e.path === 'message').msg %></p>
+      <%} else {%>
+      <p></p>
+      <%}%>
+      <button type="submit">Create</button>
+      <button onclick="window.location.href='/'">Cancel</button>
+    </form>
+  </body>
+</html>
