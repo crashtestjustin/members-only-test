@@ -12,4 +12,8 @@ router.post(
   message_controller.delete_messsage_confirm_post
 );
 
+router.get("/new-message", message_controller.new_message_get);
+
+router.post("/new-message", message_controller.new_message_post);
+
 module.exports = router;
