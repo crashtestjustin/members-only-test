@@ -42,6 +42,7 @@ exports.new_message_get = asyncHandler(async (req, res, next) => {
 
   res.render("new-message", {
     title: "New Message",
+    errors: [],
     user: req.isAuthenticated() ? req.user : null,
   });
 });
