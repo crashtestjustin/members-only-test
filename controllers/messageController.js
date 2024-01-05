@@ -3,7 +3,10 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 exports.index = asyncHandler(async (req, res, next) => {
-  const messages = await Message.find().populate("user").exec();
+  const messages = await Message.find()
+    .populate("user")
+    .sort({ posted: -1 })
+    .exec();
 
   console.log(messages);
 
