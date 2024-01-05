@@ -27,7 +27,12 @@
       <p>Message: <%= message.text %></p>
       <% if (user) { %>
       <p><%= message.user.name %> (<%= message.user.username %>)</p>
-      <p><%= message.posted %></p>
+      <p>
+        <%= message.posted.toLocaleDateString('en-US', {month: "long", day:
+        "numeric", year: "numeric"}) %> - <%=
+        message.posted.toLocaleTimeString('en-US', {hour: "numeric", minute:
+        "numeric", hour12: true}) %>
+      </p>
       <% if (user.admin === true) { %>
       <form method="post" action="/delete-message">
         <input type="hidden" name="messageID" value="<%= message._id %>" />
