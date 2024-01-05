@@ -7,16 +7,28 @@
     <title><%= title %></title>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to the Message Board. To Post Messages please sign up.</p>
-    <a href="/sign-up">Sign Up</a>
-    <a href="/log-in">Log In</a>
-    <a href="/logout">Logout</a>
+    <div class="heading">
+      <h1 class="main-title"><%= title %></h1>
+      <p>Welcome to the Message Board. To Post Messages please sign up.</p>
+    </div>
+    <div class="nav-buttons">
+      <button onclick="window.location.href='/sign-up'">Sign Up</button>
+      <button onclick="window.location.href='/log-in'">Log In</button>
+      <button onclick="window.location.href='/logout'">Logout</button>
+    </div>
     <% if (user) { %>
-    <h2><%= user.name %> (<%= user.username %>) logged in</h2>
+    <h2>Welcome <%= user.name %>!</h2>
     <% if (user.admin === true) { %>
-    <p><%= user.username %> is an admin</p>
-    <% } %> <% } %>
+    <p>User Status: Admin</p>
+    <% } else { %>
+    <p>User Status: Standard</p>
+    <% } %> <% } else { %>
+    <p>
+      Not Logged in. Please log in to create messages and interact with the
+      message board.
+    </p>
+    <% } %>
+
     <div class="message-board">
       <h1>Messages</h1>
       <% if (user) { %>
