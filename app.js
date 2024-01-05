@@ -33,9 +33,6 @@ async function main() {
   }
 }
 
-var usersRouter = require("./routes/users");
-var indexRouter = require("./routes/index");
-
 const app = express();
 
 // view engine setup
@@ -99,6 +96,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+
+var usersRouter = require("./routes/users");
+var indexRouter = require("./routes/index");
 
 app.use("/", indexRouter);
 app.use("/", usersRouter);
