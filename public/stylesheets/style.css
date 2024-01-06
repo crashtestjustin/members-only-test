@@ -3,6 +3,8 @@
   --heading-color: rgb(172, 148, 194);
   --button-color: #949fc2;
   --header-font: #232121;
+  --standard-margin-top: 1rem;
+  --fullsize-width: 70%;
 }
 
 body {
@@ -42,10 +44,48 @@ button:active {
   grid-template-rows: 2fr 1fr;
   justify-items: center;
   background-color: var(--heading-color);
-  padding: 1rem 6rem;
+  padding: 1rem 0;
   border-radius: 12px;
+  width: var(--fullsize-width);
 }
 
 .nav-buttons {
-  margin-top: 1rem;
+  margin-top: var(--standard-margin-top);
+}
+
+.user-welcome {
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+}
+
+.user-welcome > p {
+  margin: 0;
+}
+
+.message-board {
+  display: grid;
+  width: var(--fullsize-width);
+}
+
+.message-board h1 {
+  text-align: center;
+}
+
+.message-board > button {
+  justify-self: center;
+  width: 325.05px;
+}
+
+.message-board > div {
+  margin-top: var(--standard-margin-top);
+}
+
+.msg {
+  border: 2px solid black;
+  padding: 1rem 0;
+}
+
+.placeholder {
+  padding-top: 1rem;
 }
