@@ -1,3 +1,3 @@
 Basic login functionality is set up.
 
-Finally I need to create a nicer looking UI
+UI id basically done (homepage only) but now I need to go back to the deployment walkthrough and deploy the application online successfully.
