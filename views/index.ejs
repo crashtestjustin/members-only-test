@@ -22,12 +22,13 @@
       <% if (user.admin === true) { %>
       <p>User Status: Admin</p>
       <% } else { %>
-      <p>User Status: Standard</p>
+      <p>User Status: Standard Access</p>
       <% } %> <% } else { %>
-      <h4>
-        Not Logged in. Please log in to create messages and interact with the
-        message board.
-      </h4>
+      <h4>Not Logged in.</h4>
+      <p>
+        Please log in to create messages and see who posted to the message
+        board.
+      </p>
       <% } %>
     </div>
     <div class="message-board">
@@ -38,12 +39,12 @@
       </button>
       <% } else { %>
       <button onclick="window.location.href='/sign-up'">
-        Register to Create Messages
+        Sign Up to Create Messages
       </button>
       <% } %> <% messages.forEach((message) => { %>
       <div class="msg">
         <% if (user) { %>
-        <p>
+        <p class="msg-data">
           <%= message.user.name %> (<%= message.user.username %>) - <%=
           message.posted.toLocaleDateString('en-US', {month: "long", day:
           "numeric", year: "numeric"}) %> - <%=
@@ -51,16 +52,14 @@
           "numeric", hour12: true}) %>
         </p>
         <% } else { %>
-        <p class="placeholder"></p>
+        <p class="placeholder">Message metadata will go here normally.</p>
         <% } %>
-        <p>Message: <%= message.text %></p>
+        <p class="msg-content"><%= message.text %></p>
         <% if (user && user.admin === true) { %>
-        <form method="post" action="/delete-message">
+        <form class="delete-button" method="post" action="/delete-message">
           <input type="hidden" name="messageID" value="<%= message._id %>" />
           <button type="submit">Delete Message</button>
         </form>
-        <% } else { %>
-        <p class="placeholder"></p>
         <% } %>
       </div>
       <% }) %>
