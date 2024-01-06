@@ -16,41 +16,54 @@
       <button onclick="window.location.href='/log-in'">Log In</button>
       <button onclick="window.location.href='/logout'">Logout</button>
     </div>
-    <% if (user) { %>
-    <h2>Welcome <%= user.name %>!</h2>
-    <% if (user.admin === true) { %>
-    <p>User Status: Admin</p>
-    <% } else { %>
-    <p>User Status: Standard</p>
-    <% } %> <% } else { %>
-    <p>
-      Not Logged in. Please log in to create messages and interact with the
-      message board.
-    </p>
-    <% } %>
-
+    <div class="user-welcome">
+      <% if (user) { %>
+      <h2>Welcome <%= user.name %>!</h2>
+      <% if (user.admin === true) { %>
+      <p>User Status: Admin</p>
+      <% } else { %>
+      <p>User Status: Standard</p>
+      <% } %> <% } else { %>
+      <h4>
+        Not Logged in. Please log in to create messages and interact with the
+        message board.
+      </h4>
+      <% } %>
+    </div>
     <div class="message-board">
       <h1>Messages</h1>
       <% if (user) { %>
       <button onclick="window.location.href='/new-message'">
         Create New Message
       </button>
+      <% } else { %>
+      <button onclick="window.location.href='/sign-up'">
+        Register to Create Messages
+      </button>
       <% } %> <% messages.forEach((message) => { %>
-      <p>Message: <%= message.text %></p>
-      <% if (user) { %>
-      <p><%= message.user.name %> (<%= message.user.username %>)</p>
-      <p>
-        <%= message.posted.toLocaleDateString('en-US', {month: "long", day:
-        "numeric", year: "numeric"}) %> - <%=
-        message.posted.toLocaleTimeString('en-US', {hour: "numeric", minute:
-        "numeric", hour12: true}) %>
-      </p>
-      <% if (user.admin === true) { %>
-      <form method="post" action="/delete-message">
-        <input type="hidden" name="messageID" value="<%= message._id %>" />
-        <button type="submit">Delete Message</button>
-      </form>
-      <% } %> <% } %> <% }) %>
+      <div class="msg">
+        <% if (user) { %>
+        <p>
+          <%= message.user.name %> (<%= message.user.username %>) - <%=
+          message.posted.toLocaleDateString('en-US', {month: "long", day:
+          "numeric", year: "numeric"}) %> - <%=
+          message.posted.toLocaleTimeString('en-US', {hour: "numeric", minute:
+          "numeric", hour12: true}) %>
+        </p>
+        <% } else { %>
+        <p class="placeholder"></p>
+        <% } %>
+        <p>Message: <%= message.text %></p>
+        <% if (user && user.admin === true) { %>
+        <form method="post" action="/delete-message">
+          <input type="hidden" name="messageID" value="<%= message._id %>" />
+          <button type="submit">Delete Message</button>
+        </form>
+        <% } else { %>
+        <p class="placeholder"></p>
+        <% } %>
+      </div>
+      <% }) %>
     </div>
   </body>
 </html>
