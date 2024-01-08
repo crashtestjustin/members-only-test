@@ -16,11 +16,9 @@ const User = require("./model/user");
 
 //mongoDB configuraiton
 mongoose.set("strictQuery", false);
-const devUserDb = process.env.MONGODB_USER_URI;
-const devMessageDB = process.env.MONGODB_MESSAGE_URI;
 
-const userDB = process.env.MONGODB_USER_URI || devUserDb;
-const messageDB = process.env.MONGODB_MESSAGE_URI || devMessageDB;
+const userDB = process.env.MONGODB_USER_URI;
+const messageDB = process.env.MONGODB_MESSAGE_URI;
 
 main().catch((err) => console.log(err));
 async function main() {
