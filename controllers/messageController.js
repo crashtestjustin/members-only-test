@@ -8,8 +8,6 @@ exports.index = asyncHandler(async (req, res, next) => {
     .sort({ posted: -1 })
     .exec();
 
-  console.log(messages);
-
   res.render("index", {
     title: "Message Board",
     user: req.isAuthenticated() ? req.user : null,
@@ -20,7 +18,6 @@ exports.index = asyncHandler(async (req, res, next) => {
 exports.delete_messsage_post = asyncHandler(async (req, res, next) => {
   const messageID = req.body.messageID;
   const message = await Message.findById(messageID).populate("user").exec();
-  console.log(`Message ID: ${message}`);
   res.render("delete-message", {
     Title: "Delete Message",
     message: message,
@@ -30,7 +27,6 @@ exports.delete_messsage_post = asyncHandler(async (req, res, next) => {
 exports.delete_messsage_confirm_post = asyncHandler(async (req, res, next) => {
   const messageID = req.body.messageID;
   const message = await Message.findByIdAndDelete(messageID).exec();
-  console.log(`DELETED ${message}`);
   res.redirect("/");
 });
 
@@ -57,7 +53,6 @@ exports.new_message_post = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      console.log(errors.array());
       return res.render("new-message", {
         title: "New Message",
         user: req.isAuthenticated() ? req.user : null,

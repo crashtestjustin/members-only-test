@@ -182,7 +182,6 @@ exports.user_register_password_post = [
       }
 
       const approvedUser = await User.findById(updatedUser._id);
-      //   console.log(approvedUser);
 
       res.redirect(`/`);
     } catch (err) {
@@ -206,8 +205,6 @@ exports.user_login_post = (req, res, next) => {
       }
 
       if (!user) {
-        console.log(user);
-
         if (info && info.message === "incorrect password") {
           return res.render("log-in-form", {
             errors: [{ msg: "Invalid password", path: "password" }],
@@ -231,7 +228,6 @@ exports.user_login_post = (req, res, next) => {
         if (err) {
           return next(err);
         }
-        console.log(`${user.username} logged in`);
         return res.redirect("/");
       });
     } catch (err) {
