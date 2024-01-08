@@ -9,6 +9,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcryptjs");
 require("dotenv").config();
+const compression = require("compression");
+const helmet = require("helmet");
 
 const User = require("./model/user");
 
@@ -47,6 +49,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(compression);
 app.use(express.static(path.join(__dirname, "public")));
 
 passport.use(
@@ -96,9 +99,25 @@ app.use(
   })
 );
 
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  })
+);
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
+
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, //1 minute
+  max: 50,
+});
+
+app.use(limiter);
 
 var usersRouter = require("./routes/users");
 var indexRouter = require("./routes/index");
